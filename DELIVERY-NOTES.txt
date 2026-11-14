@@ -1,0 +1,20 @@
+Oo_Sathyabhama – upgraded direct UPI storefront
+
+Configured values
+- UPI ID: 9392271439@ybl
+- WhatsApp order number: +91 93922 71439
+- Delivery charge: INR 50 per order
+- Supported dress sizes: S, M, L, XL, XXL
+
+Important deployment steps
+1. Keep the existing Supabase project and Vercel project. Deploy this folder as the project root.
+2. In Supabase SQL Editor, run ecommerce-upgrade.sql once. It adds payment tracking, payment-proof storage, category/stock fields and supported order statuses without dropping existing data.
+3. Ensure the existing products storage bucket is public and existing admin policies/users remain intact.
+4. Test a low-value order on a Vercel preview deployment first.
+5. Verify the exact amount and UTR in your UPI/bank statement before setting the order to Confirmed in Admin. Confirmed updates payment_status to verified.
+
+Payment limitation
+The standard UPI deep link pre-fills the payee, amount, currency, order note and transaction reference. UPI apps may handle app selection differently by device. A direct UPI link does not provide a payment callback, so the site never treats a redirect, UTR submission or screenshot as proof of payment.
+
+Automated test suite: node tests/run-tests.js (16 tests).
+See UPGRADE-GUIDE.md for detailed setup and testing instructions.

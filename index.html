@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#7a1f3d">
+  <title>Oo_Sathyabhama – Kurta Sets & Dresses</title>
+  <meta name="description" content="Oo_Sathyabhama – beautiful kurta sets with dupatta. Choose your size, pay with PhonePe/UPI or order on WhatsApp.">
+  <meta property="og:title" content="Oo_Sathyabhama – Kurtis &amp; Kurti Sets">
+  <meta property="og:description" content="Beautiful kurta sets with dupatta. Choose your size and order online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="nav">
+    <a href="#top" class="logo"><img src="images/logo.jpg" alt="Oo_Sathyabhama – Kurtis &amp; Kurti Sets"></a>
+    <nav>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="cart-btn" id="openCart" aria-label="Open cart">🛍 Cart <span id="cartCount">0</span></button>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-text">
+      <p class="tag">New Collection</p>
+      <h1>Elegant Kurta Sets,<br>Made for You</h1>
+      <p>Beautiful dupatta sets in rich colours. Choose your size and order directly on WhatsApp.</p>
+      <a href="#shop" class="btn">Shop Now</a>
+    </div>
+    <div class="hero-img"><img src="images/dress2.jpg" alt="Royal blue kurta set"></div>
+  </section>
+
+  <section class="perks" aria-label="Why shop with us">
+    <div><span>📏</span><b>Choose your size</b><small>S to XXL</small></div>
+    <div><span>📲</span><b>Pay with PhonePe / UPI</b><small>Simple and secure</small></div>
+    <div><span>💬</span><b>WhatsApp support</b><small>Ask us anything</small></div>
+  </section>
+
+  <section class="shop" id="shop">
+    <h2>Our Collection</h2>
+    <div class="toolbar">
+      <div class="search"><span aria-hidden="true">🔍</span><input id="search" type="search" placeholder="Search kurta sets, colours…" aria-label="Search products" autocomplete="off"></div>
+      <select id="sort" aria-label="Sort products">
+        <option value="new">Newest first</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+      </select>
+    </div>
+    <div class="chips" id="chips" hidden></div>
+    <p class="result-count" id="resultCount"></p>
+    <div class="grid" id="grid"><p class="empty">Loading collection…</p></div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About Us</h2>
+    <p>Oo_Sathyabhama lo meeku nachhe quality kurta sets, soft fabrics and beautiful dupattas dorukutayi. Size select chesi, WhatsApp lo order cheyandi – memu confirm chestam.</p>
+  </section>
+
+  <footer id="contact">
+    <img class="f-logo" src="images/logo.jpg" alt="Oo_Sathyabhama">
+    <p>Order / Enquiry: <a href="https://wa.me/919392271439" target="_blank" rel="noopener">+91 93922 71439</a></p>
+    <p class="small">© <span id="yr"></span> Oo_Sathyabhama. All rights reserved.</p>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/919392271439" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+
+  <nav class="tabbar" aria-label="Quick menu">
+    <a href="#top">🏠<span>Home</span></a>
+    <a href="#shop">👗<span>Shop</span></a>
+    <a href="#" id="tabCart">🛍<span>Cart</span></a>
+    <a href="https://wa.me/919392271439" target="_blank" rel="noopener">💬<span>WhatsApp</span></a>
+  </nav>
+  <script src="supabase-config.js"></script>
+  <script src="products.js"></script>
+  <script src="common.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

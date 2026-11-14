@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-root="/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#7a1f3d">
+  <title>Product | Oo_Sathyabhama</title>
+  <!--OG-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a href="/" class="logo"><img src="/images/logo.jpg" alt="Oo_Sathyabhama – Kurtis &amp; Kurti Sets"></a>
+    <nav>
+      <a href="/#shop">Shop</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <button class="cart-btn" id="openCart" aria-label="Open cart">🛍 Cart <span id="cartCount">0</span></button>
+  </header>
+
+  <main class="pd-wrap">
+    <p class="crumbs"><a href="/">Home</a> › <a href="/#shop">Shop</a> › <span id="crumbName">Product</span></p>
+    <div class="pd" id="pd"><p class="empty">Loading product…</p></div>
+  </main>
+
+  <section class="shop related" id="related" hidden>
+    <h2>You may also like</h2>
+    <div class="grid" id="relatedGrid"></div>
+  </section>
+
+  <footer id="contact">
+    <img class="f-logo" src="/images/logo.jpg" alt="Oo_Sathyabhama">
+    <p>Order / Enquiry: <a href="https://wa.me/919392271439" target="_blank" rel="noopener">+91 93922 71439</a></p>
+    <p class="small">© <span id="yr"></span> Oo_Sathyabhama. All rights reserved.</p>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/919392271439" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+  <nav class="tabbar" aria-label="Quick menu">
+    <a href="/">🏠<span>Home</span></a>
+    <a href="/#shop">👗<span>Shop</span></a>
+    <a href="#" id="tabCart">🛍<span>Cart</span></a>
+    <a href="https://wa.me/919392271439" target="_blank" rel="noopener">💬<span>WhatsApp</span></a>
+  </nav>
+  <script src="/supabase-config.js"></script>
+  <script src="/products.js"></script>
+  <script src="/common.js"></script>
+  <script src="/product.js"></script>
+</body>
+</html>

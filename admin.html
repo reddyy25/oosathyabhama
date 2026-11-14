@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7a1f3d"><title>Admin Dashboard | Oo_Sathyabhama</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar"><a class="brand" href="index.html">Oo_Sathyabhama <span>ADMIN</span></a><a class="back" href="index.html">← View store</a></header>
+    <section id="loginView" class="login-card">
+      <div class="eyebrow">PRIVATE ACCESS</div><h1>Admin Login</h1><p>Sign in with your authorised Supabase admin account.</p>
+      <form id="loginForm"><label>Email address<input id="loginEmail" type="email" autocomplete="username" required placeholder="admin@example.com"></label><label>Password<input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Your password"></label><button class="primary" type="submit">Sign in</button></form>
+      <p id="loginMessage" class="message" aria-live="polite"></p>
+    </section>
+    <section id="dashboardView" hidden>
+      <div class="welcome"><div><div class="eyebrow">STORE MANAGEMENT</div><h1>Dashboard</h1><p id="adminEmail" class="muted"></p></div><button id="logoutBtn" class="secondary">Sign out</button></div>
+      <div class="stats"><article><span>Total products</span><strong id="productCount">—</strong></article><article><span>Total orders</span><strong id="orderCount">—</strong></article><article><span>Pending orders</span><strong id="pendingCount">—</strong></article><article><span>Awaiting payment check</span><strong id="verifyCount">—</strong></article></div>
+      <div class="tabs"><button class="tab active" data-tab="productsPanel">Products</button><button class="tab" data-tab="ordersPanel">Orders</button></div>
+      <section id="productsPanel" class="panel">
+        <div class="panel-head"><div><h2>Manage products</h2><p class="muted">Add new items or update your collection.</p></div><button id="newProductBtn" class="primary">+ Add product</button></div>
+        <form id="productForm" class="product-form" hidden>
+          <h3 id="formTitle">Add product</h3><input id="productId" type="hidden">
+          <div class="form-grid"><label>Product name<input id="productName" maxlength="150" required></label><label>Price (₹)<input id="productPrice" type="number" min="0" step="0.01" required></label><label class="wide">Description<textarea id="productDescription" rows="3"></textarea></label><label class="extra" hidden>Category<input id="productCategory" maxlength="60" placeholder="e.g. Kurta Sets"></label><label class="extra" hidden>Stock quantity<input id="productStock" type="number" min="0" step="1" placeholder="Leave empty if not tracked"></label><label>Product images (you can choose several)<input id="productImage" type="file" accept="image/*" multiple></label><label class="check"><input id="productActive" type="checkbox" checked> Visible in store</label></div>
+          <p id="currentImage" class="muted"></p><div class="form-actions"><button class="primary" type="submit">Save product</button><button id="cancelProductBtn" class="secondary" type="button">Cancel</button></div><p id="productMessage" class="message" aria-live="polite"></p>
+        </form>
+        <div id="productsList" class="table-wrap"><p class="muted">Loading products…</p></div>
+      </section>
+      <section id="ordersPanel" class="panel" hidden>
+        <div class="panel-head"><div><h2>Customer orders</h2><p class="muted">Review orders and update their status.</p></div><button id="refreshOrdersBtn" class="secondary">Refresh</button></div>
+        <div id="ordersList" class="table-wrap"><p class="muted">Loading orders…</p></div>
+      </section>
+      <p id="dashboardMessage" class="message" aria-live="polite"></p>
+    </section>
+    <footer>Oo_Sathyabhama · Secure store administration</footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script><script src="admin.js"></script>
+</body></html>

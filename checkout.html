@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-root="/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#7a1f3d">
+  <meta name="robots" content="noindex">
+  <title>Checkout | Oo_Sathyabhama</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a href="/" class="logo"><img src="/images/logo.jpg" alt="Oo_Sathyabhama"></a>
+    <nav><a href="/#shop">Shop</a><a href="/#contact">Contact</a></nav>
+    <button class="cart-btn" id="openCart" aria-label="Open cart">🛍 Cart <span id="cartCount">0</span></button>
+  </header>
+
+  <main class="co-wrap">
+    <ol class="steps" id="steps">
+      <li class="on" data-s="1">Details</li><li data-s="2">Pay</li><li data-s="3">Done</li>
+    </ol>
+
+    <!-- Step 1: order summary + customer details -->
+    <section id="stepDetails" class="co-grid">
+      <div class="co-card">
+        <h2>Order summary</h2>
+        <div id="coItems"><p class="empty">Loading…</p></div>
+        <div class="total"><span>Subtotal</span><strong id="coSubtotal">₹0</strong></div>
+        <div class="total"><span>Delivery</span><strong id="coDelivery">₹50</strong></div>
+        <div class="total"><span>Grand total</span><strong id="coTotal">₹0</strong></div>
+        <p class="note">Delivery charge is ₹50 per order. The final amount is recalculated on the server using current product prices.</p>
+      </div>
+      <form class="co-card" id="coForm" novalidate>
+        <h2>Delivery details</h2>
+        <label>Full name *<input id="coName" autocomplete="name" maxlength="120" required></label>
+        <label>Mobile number *<input id="coPhone" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile number" required></label>
+        <label>Full delivery address *<textarea id="coAddr" rows="3" autocomplete="street-address" maxlength="1000" placeholder="House no, street, area, city, state" required></textarea></label>
+        <label>PIN code *<input id="coPin" inputmode="numeric" autocomplete="postal-code" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit PIN code" required></label>
+        <input id="coWebsite" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+        <button class="btn full" id="coPlace" type="submit">Place order &amp; pay</button>
+        <p class="form-msg" id="coMsg" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- Step 2: pay with PhonePe / UPI -->
+    <section id="stepPay" class="co-grid" hidden>
+      <div class="co-card">
+        <h2>Pay <span id="payAmount"></span></h2>
+        <p class="muted">Order <b id="payRef"></b></p>
+        <div id="payButtons"></div>
+        <div class="vpa" id="vpaBox" hidden>UPI ID: <b id="vpaText"></b> <button type="button" class="linkbtn" id="copyVpa">Copy</button></div>
+        <p class="note">Please pay the exact amount shown. After paying, enter your transaction ID (UTR) on the right so we can verify it.</p>
+      </div>
+      <div class="co-card">
+        <h2>I have paid</h2>
+        <label>Transaction ID / UTR *<input id="payUtr" placeholder="e.g. 412345678901" autocomplete="off" maxlength="35"></label>
+        <label>Payment screenshot (optional)<input id="payShot" type="file" accept="image/*"></label>
+        <button class="btn full" id="paySubmit" type="button">Submit payment details</button>
+        <button class="btn wa" id="payWa" type="button">Send screenshot on WhatsApp</button>
+        <p class="form-msg" id="payMsg" aria-live="polite"></p>
+        <p class="note"><b>Important:</b> a screenshot alone does not confirm your order. We confirm it only after we see the payment in our PhonePe merchant account.</p>
+      </div>
+    </section>
+
+    <!-- Step 3: done -->
+    <section id="stepDone" class="co-card done" hidden>
+      <div class="tick">✓</div>
+      <h2 id="doneTitle">Order received</h2>
+      <p id="doneText"></p>
+      <a class="btn wa" id="doneWa" target="_blank" rel="noopener" style="max-width:320px;margin:10px auto 0;display:block;text-align:center">Chat with us on WhatsApp</a>
+      <a class="btn ghost" href="/" style="margin-top:12px">Continue shopping</a>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <img class="f-logo" src="/images/logo.jpg" alt="Oo_Sathyabhama">
+    <p>Order / Enquiry: <a href="https://wa.me/919392271439" target="_blank" rel="noopener">+91 93922 71439</a></p>
+    <p class="small">© <span id="yr"></span> Oo_Sathyabhama. All rights reserved.</p>
+  </footer>
+  <script src="/supabase-config.js"></script>
+  <script src="/products.js"></script>
+  <script src="/common.js"></script>
+  <script src="/checkout.js"></script>
+</body>
+</html>
