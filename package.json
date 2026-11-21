@@ -1,0 +1,39 @@
+{
+  "name": "oosatyabhama-store",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "set-admin": "node scripts/set-admin.mjs",
+    "seed": "node scripts/seed-products.mjs",
+    "deploy:rules": "firebase deploy --only firestore:rules",
+    "deploy:hosting": "npm run build && firebase deploy --only hosting",
+    "deploy:storage-rules": "firebase deploy --only storage",
+    "test": "node --test tests/api.test.js tests/payments.test.js",
+    "add-secret": "node scripts/set-cloudinary-secret.mjs",
+    "check-cloudinary": "node scripts/check-cloudinary.mjs",
+    "upgrade-env": "node scripts/upgrade-env.mjs",
+    "add-service-account": "node scripts/add-service-account.mjs",
+    "check-payments": "node scripts/check-payments.mjs"
+  },
+  "dependencies": {
+    "firebase": "^12.5.0",
+    "firebase-admin": "^13.0.2",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
+    "react-router-dom": "^7.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.5",
+    "eslint": "^9.17.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
