@@ -13,24 +13,52 @@ const SETUP_HINT = 'Timed out. In Firebase Console make sure the Firestore datab
 const UPLOAD_HINT = 'Image upload timed out. Check your internet connection and the Cloudinary values in .env.local, then restart npm run dev.';
 
 function formatAddress(order) {
-  const c = order.customer || {};
-  const addr = order.shippingAddress || order.address || c.address || c;
-  if (typeof addr === 'string' && addr.trim()) return addr.trim();
-  if (addr && typeof addr === 'object') {
+  const c = order?.customer || {};
+  const addr = order?.shippingAddress || order?.address || c?.address || c;
+  let formatted = '';
+
+  if (typeof addr === 'string' && addr.trim()) {
+    formatted = addr.trim();
+  } else if (addr && typeof addr === 'object') {
+    const pin =
+      addr.pincode ||
+      addr.pinCode ||
+      addr.pin ||
+      addr.postalCode ||
+      addr.zip ||
+      addr.zipCode ||
+      c.pincode ||
+      c.pinCode ||
+      c.pin ||
+      c.postalCode ||
+      c.zip ||
+      order?.pincode ||
+      order?.pinCode ||
+      order?.pin ||
+      '';
+
     const parts = [
       addr.line1 || addr.street || addr.addressLine1 || addr.doorNo || addr.house,
       addr.line2 || addr.landmark || addr.addressLine2 || addr.area,
       addr.city,
       addr.district,
       addr.state,
-      addr.pincode || addr.postalCode || addr.zip,
+      pin,
       addr.country,
     ]
       .map(v => (typeof v === 'string' ? v.trim() : v))
       .filter(Boolean);
-    if (parts.length) return parts.join(', ');
+
+    formatted = parts.join(', ');
   }
-  return '—';
+
+  if (formatted && !/\b[1-9][0-9]{5}\b/.test(formatted)) {
+    const rawText = JSON.stringify(order || {});
+    const match = rawText.match(/\b[1-9][0-9]{5}\b/);
+    if (match) formatted = `${formatted} - ${match[0]}`;
+  }
+
+  return formatted || '—';
 }
 
 export default function Admin() {
