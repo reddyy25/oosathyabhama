@@ -8,20 +8,41 @@ import toast from 'react-hot-toast';
 export default function ProductDetail() {
   const { id } = useParams();
   const [p, setP] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
   const [copied, setCopied] = useState(false);
   const { add } = useShop();
 
   useEffect(() => {
+    let active = true;
+    setLoading(true);
     getProduct(id)
       .then((x) => {
-        setP(x);
+        if (!active) return;
+        setP(x || null);
         setSize(x?.sizes?.[0] || '');
         setColor(x?.colors?.[0] || '');
       })
-      .catch(() => setP(null));
+      .catch(() => {
+        if (!active) return;
+        setP(null);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, [id]);
+
+  if (loading) {
+    return (
+      <main className="page-wrap empty">
+        <h2>Loading product...</h2>
+      </main>
+    );
+  }
 
   if (!p) {
     return (
