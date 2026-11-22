@@ -2,3 +2,37 @@
 @media(max-width:1000px){.nav{gap:12px}.nav a{font-size:10px}.product-grid{grid-template-columns:repeat(3,1fr)}.product-image{height:280px}}
 @media(max-width:760px){.header{height:72px;padding:0 5%}.brand{font-size:15px}.brand img{width:140px;height:48px}.brand small{font-size:7px}.menu-toggle{display:block;margin-left:auto;margin-right:15px}.nav{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;box-shadow:0 10px 15px #0000000d;padding:18px 7%;flex-direction:column;gap:17px}.nav.open{display:flex}.nav a{font-size:13px}.head-actions{gap:13px}.hero{grid-template-columns:1fr;padding:55px 8% 30px;min-height:auto}.hero h1{font-size:48px}.hero-art{height:260px}.hero-circle{width:205px;height:205px;outline-width:7px}.hero-circle span{font-size:23px}.hero-note{font-size:14px}.section{padding:50px 6%}.section-heading h2{font-size:29px}.category-tiles{grid-template-columns:1fr 1fr}.category-tile{height:145px;padding:15px}.category-tile span{font-size:18px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.product-image{height:245px}.product-name{font-size:15px}.promise{padding:25px 7%;display:grid;grid-template-columns:1fr 1fr;gap:22px}.footer-main{grid-template-columns:1fr 1fr;gap:28px}.page-wrap{padding:40px 5% 60px}.page-title h1{font-size:39px}.filters>*{flex:1;min-width:40%}.filters label{min-width:100%}.cart-layout,.checkout-layout,.detail{grid-template-columns:1fr;gap:25px}.summary{order:2}.detail-copy{position:static}.detail h1{font-size:37px}.detail-images img{max-height:350px}.admin-page{grid-template-columns:1fr}.admin-side{padding:15px;display:flex;flex-direction:row;align-items:center;overflow:auto}.admin-side h2{font-size:18px;white-space:nowrap}.admin-side small{display:none}.admin-side button,.admin-side a{white-space:nowrap;padding:9px}.admin-content{padding:20px 14px}.stats{grid-template-columns:1fr 1fr}.admin-top h1{font-size:30px}}
 @media(max-width:420px){.product-image{height:205px}.brand{letter-spacing:1px}.brand small{letter-spacing:1px}.hero h1{font-size:43px}.form-grid{grid-template-columns:1fr}.form-grid .span2{grid-column:auto}.promise{grid-template-columns:1fr}.cart-row>img{width:78px;height:100px}.remove{font-size:10px}}
+.share-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.share-label {
+  font-size: 0.875rem;
+  opacity: 0.75;
+  margin-right: 2px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.share-btn:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.04);
+}
