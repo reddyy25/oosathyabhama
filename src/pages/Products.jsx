@@ -6,6 +6,7 @@ import ProductGrid from '../components/ProductGrid';
 export default function Products({ flag }) {
   const { category } = useParams();
   const [all, setAll] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [size, setSize] = useState('All');
   const [sort, setSort] = useState('featured');
@@ -15,14 +16,48 @@ export default function Products({ flag }) {
   const cat = category ? decodeURIComponent(category) : '';
 
   useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setError('');
+
     getProducts({ category: cat, flag })
-      .then(setAll)
-      .catch(() =>
+      .then((data) => {
+        if (!active) return;
+        const list = Array.isArray(data) ? data : [];
+        setAll(list);
+
+        const highestPrice = list.reduce(
+          (acc, item) => Math.max(acc, Number(item.price) || 0),
+          0
+        );
+        if (highestPrice > 10000) {
+          setMax(Math.ceil(highestPrice / 250) * 250);
+        } else {
+          setMax(10000);
+        }
+      })
+      .catch(() => {
+        if (!active) return;
         setError(
           'Products will appear here after Firebase is configured and the catalogue is seeded.'
-        )
-      );
+        );
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, [cat, flag]);
+
+  const sliderMax = useMemo(() => {
+    const highestPrice = all.reduce(
+      (acc, item) => Math.max(acc, Number(item.price) || 0),
+      0
+    );
+    return highestPrice > 10000 ? Math.ceil(highestPrice / 250) * 250 : 10000;
+  }, [all]);
 
   const items = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -53,6 +88,16 @@ export default function Products({ flag }) {
       );
   }, [all, search, size, sort, max]);
 
+  const hasActiveFilters =
+    Boolean(search.trim()) || size !== 'All' || sort !== 'featured' || max < sliderMax;
+
+  const resetFilters = () => {
+    setSearch('');
+    setSize('All');
+    setSort('featured');
+    setMax(sliderMax);
+  };
+
   const title =
     flag === 'new'
       ? 'New Arrivals'
@@ -67,6 +112,7 @@ export default function Products({ flag }) {
         <h1>{title}</h1>
         <p>Find a style that feels unmistakably yours.</p>
       </div>
+
       <div className="filters">
         <input
           placeholder="Search kurtis or SKU..."
@@ -90,15 +136,25 @@ export default function Products({ flag }) {
           <input
             type="range"
             min="500"
-            max="10000"
+            max={sliderMax}
             step="250"
             value={max}
             onChange={(e) => setMax(+e.target.value)}
           />
         </label>
+        {hasActiveFilters && (
+          <button type="button" className="btn small ghost" onClick={resetFilters}>
+            Reset
+          </button>
+        )}
       </div>
+
       {error && <p className="notice">{error}</p>}
-      <ProductGrid products={items} />
+      {loading ? (
+        <p className="notice">Loading kurtis...</p>
+      ) : (
+        <ProductGrid products={items} />
+      )}
     </main>
   );
 }
