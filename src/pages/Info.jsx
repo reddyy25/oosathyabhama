@@ -1,7 +1,3 @@
-import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase/config'; // Mee firebase db export path ki taggattu chudandi
-
 const content = {
   about: [
     'Our story',
@@ -31,184 +27,19 @@ const content = {
 
 export default function Info({ type }) {
   const [title, body] = content[type] || content.about;
-  const [settings, setSettings] = useState(null);
-  const [loadingSettings, setLoadingSettings] = useState(false);
-
-  useEffect(() => {
-    if (type !== 'contact') return;
-
-    let active = true;
-    setLoadingSettings(true);
-
-    const loadStoreSettings = async () => {
-      try {
-        const snap = await getDoc(doc(db, 'settings', 'store'));
-        if (!active) return;
-        setSettings(snap.exists() ? snap.data() : null);
-      } catch {
-        if (!active) return;
-        setSettings(null);
-      } finally {
-        if (active) setLoadingSettings(false);
-      }
-    };
-
-    loadStoreSettings();
-    return () => {
-      active = false;
-    };
-  }, [type]);
-
-  const storeName =
-    settings?.storeName || settings?.['store Name'] || 'Oosatyabhama';
-  const contactNumber =
-    settings?.contactNumber ||
-    settings?.['contact Number'] ||
-    settings?.phone ||
-    '';
-  const whatsappNumber =
-    settings?.whatsappNumber ||
-    settings?.['whatsapp Number'] ||
-    settings?.whatsapp ||
-    contactNumber;
-  const storeEmail =
-    settings?.storeEmail ||
-    settings?.['store Email'] ||
-    settings?.email ||
-    '';
-
-  const cleanPhone = String(contactNumber).replace(/[^\d+]/g, '');
-  const cleanWhatsapp = String(whatsappNumber).replace(/\D/g, '');
-  const hasContactDetails = Boolean(
-    contactNumber || whatsappNumber || storeEmail
-  );
-
   return (
     <main className="page-wrap narrow">
       <div className="page-title">
-        <span className="eyebrow">{String(storeName).toUpperCase()}</span>
+        <span className="eyebrow">OOSATYABHAMA</span>
         <h1>{title}</h1>
       </div>
-
       <div className="policy-copy">
         <p>{body}</p>
-
         {type === 'contact' && (
-          <>
-            {loadingSettings ? (
-              <p>Loading contact details...</p>
-            ) : hasContactDetails ? (
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-                  gap: '14px',
-                  marginTop: '24px',
-                }}
-              >
-                {contactNumber && (
-                  <div
-                    style={{
-                      border: '1px solid #eee2df',
-                      background: '#fff8f6',
-                      borderRadius: '10px',
-                      padding: '16px',
-                    }}
-                  >
-                    <small
-                      style={{
-                        display: 'block',
-                        fontSize: '10px',
-                        letterSpacing: '1.4px',
-                        color: '#812d4b',
-                        fontWeight: 700,
-                        marginBottom: '6px',
-                      }}
-                    >
-                      CONTACT NUMBER
-                    </small>
-                    <a
-                      href={`tel:${cleanPhone}`}
-                      style={{ fontWeight: 600, color: '#39232b' }}
-                    >
-                      {contactNumber}
-                    </a>
-                  </div>
-                )}
-
-                {whatsappNumber && (
-                  <div
-                    style={{
-                      border: '1px solid #eee2df',
-                      background: '#fff8f6',
-                      borderRadius: '10px',
-                      padding: '16px',
-                    }}
-                  >
-                    <small
-                      style={{
-                        display: 'block',
-                        fontSize: '10px',
-                        letterSpacing: '1.4px',
-                        color: '#812d4b',
-                        fontWeight: 700,
-                        marginBottom: '6px',
-                      }}
-                    >
-                      WHATSAPP NUMBER
-                    </small>
-                    <a
-                      href={`https://wa.me/${cleanWhatsapp}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ fontWeight: 600, color: '#39232b' }}
-                    >
-                      {whatsappNumber}
-                    </a>
-                  </div>
-                )}
-
-                {storeEmail && (
-                  <div
-                    style={{
-                      border: '1px solid #eee2df',
-                      background: '#fff8f6',
-                      borderRadius: '10px',
-                      padding: '16px',
-                    }}
-                  >
-                    <small
-                      style={{
-                        display: 'block',
-                        fontSize: '10px',
-                        letterSpacing: '1.4px',
-                        color: '#812d4b',
-                        fontWeight: 700,
-                        marginBottom: '6px',
-                      }}
-                    >
-                      STORE EMAIL
-                    </small>
-                    <a
-                      href={`mailto:${storeEmail}`}
-                      style={{
-                        fontWeight: 600,
-                        color: '#39232b',
-                        wordBreak: 'break-word',
-                      }}
-                    >
-                      {storeEmail}
-                    </a>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <p>
-                Please add your official phone, WhatsApp and email in Admin →
-                Settings after setup.
-              </p>
-            )}
-          </>
+          <p>
+            Please add your official phone, WhatsApp and email in Admin → Settings
+            after setup.
+          </p>
         )}
       </div>
     </main>
