@@ -135,11 +135,20 @@ export function createPaymentService({ db, FieldValue, rp, env }) {
     if (entity?.order_id) {
       const found = await db.collection('paymentAttempts').where('razorpayOrderId', '==', entity.order_id).limit(1).get();
       if (!found.empty) {
+        const docSnap = found.docs[0];
         const patch = { webhookLastEvent: event.event, webhookReceivedAt: now() };
         if (event.event === 'payment.failed') patch.status = 'Failed';
         if (event.event === 'payment.authorized') patch.status = 'Pending';
         if (event.event === 'payment.captured') patch.capturedPaymentId = entity.id;
-        await found.docs[0].ref.update(patch);
+        await docSnap.ref.update(patch);
+
+        if (event.event === 'payment.captured' && entity.id) {
+          try {
+            await finalize(docSnap.id, entity.id, entity.order_id);
+          } catch (err) {
+            console.error('Webhook finalize skipped/failed:', err.message || err);
+          }
+        }
       }
     }
     await db.collection('webhookEvents').doc(String(event.id || crypto.createHash('sha256').update(raw).digest('hex'))).set({ event: event.event, receivedAt: now() }, { merge: true });
