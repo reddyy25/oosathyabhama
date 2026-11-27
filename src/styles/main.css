@@ -26,10 +26,6 @@
 .hero.hero-banner .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(255,247,244,0.95) 0%,rgba(255,247,244,0.84) 38%,rgba(255,247,244,0.14) 68%,rgba(255,247,244,0) 100%)}
 .hero.hero-banner .hero-copy{position:relative;z-index:2;max-width:500px}
 
-.hero-dots{display:flex;gap:8px;margin-top:22px}
-.hero-dot{width:9px;height:9px;padding:0;border-radius:999px;border:1px solid #812d4b;background:transparent;transition:width .25s ease,background-color .25s ease}
-.hero-dot.active{width:24px;background:#812d4b}
-
 @media(max-width:768px){
   .hero.hero-banner{min-height:520px;padding:36px 5% 40px;display:flex;flex-direction:column;justify-content:flex-end}
   .hero.hero-banner .hero-bg-img{object-position:center top}
