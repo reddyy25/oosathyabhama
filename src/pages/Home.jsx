@@ -3,53 +3,9 @@ import { useEffect, useState } from 'react';
 import { getProducts } from '../services/products';
 import ProductGrid from '../components/ProductGrid';
 
-const HERO_SLIDES = [
-  {
-    eyebrow: 'THE NEW ETHNIC EDIT',
-    titleLine1: 'Elegance that',
-    titleItalic: 'feels like you.',
-    description:
-      'Beautifully expressive kurtis for everyday moments and celebrations alike.',
-    ctaText: 'EXPLORE THE COLLECTION',
-    ctaLink: '/products',
-    desktopImg: '/hero-desktop.webp',
-    mobileImg: '/hero-mobile.webp',
-    alt: 'Oo Sathyabhama — Maroon & Antique Gold Ethnic Kurtis Collection',
-    isPrimary: true,
-  },
-  {
-    eyebrow: 'FESTIVE & CELEBRATION EDIT',
-    titleLine1: 'Crafted for',
-    titleItalic: 'golden moments.',
-    description:
-      'Rich embroidery, breathable weaves, and graceful silhouettes made to stand out.',
-    ctaText: 'SHOP FESTIVE WEAR',
-    ctaLink: '/category/Party%20Wear%20Kurtis',
-    desktopImg: '/hero-desktop-2.webp',
-    mobileImg: '/hero-mobile-2.webp',
-    alt: 'Oo Sathyabhama — Festive & Celebration Ethnic Kurtis',
-    isPrimary: false,
-  },
-  {
-    eyebrow: 'EVERYDAY COMFORT EDIT',
-    titleLine1: 'Soft cottons,',
-    titleItalic: 'timeless grace.',
-    description:
-      'Light, airy daily kurtis designed for effortless comfort from morning to evening.',
-    ctaText: 'SHOP COTTON KURTIS',
-    ctaLink: '/category/Cotton%20Kurtis',
-    desktopImg: '/hero-desktop-3.webp',
-    mobileImg: '/hero-mobile-3.webp',
-    alt: 'Oo Sathyabhama — Everyday Cotton Kurtis Collection',
-    isPrimary: false,
-  },
-];
-
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [err, setErr] = useState('');
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     getProducts()
@@ -59,65 +15,41 @@ export default function Home() {
       );
   }, []);
 
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [paused]);
-
   const featuredList = products.filter((p) => p.featured);
   const displayProducts = [
     ...featuredList,
     ...products.filter((p) => !p.featured),
   ].slice(0, 8);
 
-  const current = HERO_SLIDES[activeSlide];
-
   return (
     <>
-      <section
-        className="hero hero-banner"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        <picture className="hero-media" key={current.desktopImg}>
-          <source media="(max-width: 768px)" srcSet={current.mobileImg} />
+      <section className="hero hero-banner">
+        <picture className="hero-media">
+          <source media="(max-width: 768px)" srcSet="/hero-mobile.webp" />
           <img
-            src={current.desktopImg}
-            alt={current.alt}
+            src="/hero-desktop.webp"
+            alt="Oo Sathyabhama — Maroon & Antique Gold Ethnic Kurtis Collection"
             className="hero-bg-img"
-            loading={current.isPrimary ? 'eager' : 'lazy'}
-            fetchPriority={current.isPrimary ? 'high' : 'auto'}
+            fetchPriority="high"
           />
         </picture>
 
         <div className="hero-overlay" />
 
         <div className="hero-copy">
-          <span className="eyebrow">{current.eyebrow}</span>
+          <span className="eyebrow">THE NEW ETHNIC EDIT</span>
           <h1>
-            {current.titleLine1}
+            Elegance that
             <br />
-            <em>{current.titleItalic}</em>
+            <em>feels like you.</em>
           </h1>
-          <p>{current.description}</p>
-          <Link className="btn" to={current.ctaLink}>
-            {current.ctaText}
+          <p>
+            Beautifully expressive kurtis for everyday moments and celebrations
+            alike.
+          </p>
+          <Link className="btn" to="/products">
+            EXPLORE THE COLLECTION
           </Link>
-
-          <div className="hero-dots" aria-label="Hero banner slides">
-            {HERO_SLIDES.map((slide, idx) => (
-              <button
-                key={slide.eyebrow}
-                type="button"
-                className={`hero-dot ${idx === activeSlide ? 'active' : ''}`}
-                onClick={() => setActiveSlide(idx)}
-                aria-label={`Show slide ${idx + 1}: ${slide.eyebrow}`}
-              />
-            ))}
-          </div>
         </div>
       </section>
 
