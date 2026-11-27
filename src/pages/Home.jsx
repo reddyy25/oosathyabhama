@@ -23,7 +23,19 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero">
+      <section className="hero hero-banner">
+        <picture className="hero-media">
+          <source media="(max-width: 768px)" srcSet="/hero-mobile.webp" />
+          <img
+            src="/hero-desktop.webp"
+            alt="Oo Sathyabhama — Maroon & Antique Gold Ethnic Kurtis Collection"
+            className="hero-bg-img"
+            fetchPriority="high"
+          />
+        </picture>
+
+        <div className="hero-overlay" />
+
         <div className="hero-copy">
           <span className="eyebrow">THE NEW ETHNIC EDIT</span>
           <h1>
@@ -38,20 +50,6 @@ export default function Home() {
           <Link className="btn" to="/products">
             EXPLORE THE COLLECTION
           </Link>
-        </div>
-        <div className="hero-art">
-          <div className="hero-circle">
-            <span>
-              STYLE
-              <br />
-              YOUR
-              <br />
-              STORY
-            </span>
-          </div>
-          <div className="hero-note">
-            A timeless kind of beautiful <b>✦</b>
-          </div>
         </div>
       </section>
 
