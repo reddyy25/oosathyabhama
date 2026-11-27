@@ -1,1 +1,21 @@
-{"rewrites":[{"source":"/((?!api/).*)","destination":"/index.html"}]}
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "oosathyabhama.vercel.app"
+        }
+      ],
+      "destination": "https://www.oosathyabhama.in/$1",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
